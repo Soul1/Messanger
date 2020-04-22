@@ -1,0 +1,38 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "react, redux",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soul1/Chat.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "typescript",
+    "express",
+    "nodejs",
+    "node",
+    "react-redux",
+    "react-thunk"
+  ],
+  "author": "Midaev Akhmad <darkwaud@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Soul1/Chat/issues"
+  },
+  "homepage": "https://github.com/Soul1/Chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.3",
+    "typescript": "^3.8.3"
+  }
+}
