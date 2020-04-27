@@ -1,7 +1,7 @@
 import {IDialogsState, IUserState} from "../../types/redux/reducers";
 
 const initialState: IDialogsState = {
-
+  usersId: []
 }
 
 const dialogs = (state = initialState, action: any) => {

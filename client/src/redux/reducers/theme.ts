@@ -1,7 +1,7 @@
 import {IThemeState} from "../../types/redux/reducers";
 
 const initialState: IThemeState = {
-
+  theme: 'dark'
 }
 
 const theme = (state = initialState, action: any) => {

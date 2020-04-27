@@ -1,7 +1,7 @@
 import {IUserState} from "../../types/redux/reducers";
 
 const initialState: IUserState = {
-  id: 1,
+  id: 0,
   FullName: 'string',
   status: 'string',
 }

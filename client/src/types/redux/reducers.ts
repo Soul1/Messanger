@@ -2,7 +2,6 @@ export type IUserState = {
   id: number;
   FullName: string;
   status: string;
-
 }
 export type IDialogState = {
   id: number;
