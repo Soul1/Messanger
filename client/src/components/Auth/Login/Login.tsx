@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import firebase from "firebase/app";
 
-
 const Login = () => {
   const [form, setForm] = useState({email: '', password: ''})
   const onLoginClick = async () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(form.email, form.password)
     } catch (e) {
-
+      throw e
     }
   }
   const formHandler = (e: any) => setForm({...form, [e.target.name]: e.target.value})
@@ -26,7 +25,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <canvas id="canvas" width="400" height="400"/>
     </div>
   );
 }
