@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/Soul1/Chat#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "firebase": "^7.14.2"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
