@@ -2,6 +2,7 @@ export type IUserState = {
   id: number;
   FullName: string;
   status: string;
+  isAuth: boolean;
 }
 export type IDialogState = {
   id: number;

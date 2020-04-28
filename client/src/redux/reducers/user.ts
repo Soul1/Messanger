@@ -4,6 +4,7 @@ const initialState: IUserState = {
   id: 0,
   FullName: 'string',
   status: 'string',
+  isAuth: false,
 }
 
 const user = (state = initialState, action: any) => {
