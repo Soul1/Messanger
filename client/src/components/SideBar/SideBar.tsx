@@ -3,7 +3,8 @@ import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {IUserState} from "../../types/redux/reducers"
 
-const SideBar = ({isAuth}: { isAuth: boolean }) => {
+const SideBar = (props: {isAuth: boolean}) => {
+  const {isAuth} = props
   return (
     <div>
       {isAuth ?
@@ -20,4 +21,4 @@ const mSTP = ({user}: { user: IUserState }) => ({
   isAuth: user.isAuth,
 })
 
-export default connect()(SideBar);
+export default connect(mSTP)(SideBar);
