@@ -9,14 +9,20 @@ import SideBar from "./components/SideBar/SideBar";
 const App = () => {
   return (
       <BrowserRouter>
-        <SideBar/>
-        <Switch>
-          <Route path='/login' render={() => <Login/>}/>
-          <Route path='/register' render={() => <Register/>}/>
-          <Route path='/main' render={() => <Body/>}/>
-          <Route path='/settings' render={() => <Settings/>}/>
-          <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
-        </Switch>
+        <div className="app">
+          <div className="app__sidebar">
+            <SideBar/>
+          </div>
+          <div className="app__main">
+            <Switch>
+              <Route path='/login' render={() => <Login/>}/>
+              <Route path='/register' render={() => <Register/>}/>
+              <Route path='/main' render={() => <Body/>}/>
+              <Route path='/settings' render={() => <Settings/>}/>
+              <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+            </Switch>
+          </div>
+        </div>
       </BrowserRouter>
   );
 }
