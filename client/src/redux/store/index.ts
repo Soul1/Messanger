@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux"
+import {combineReducers, createStore, compose} from "redux"
 import Chats from '../reducers/chats'
 import Dialog from '../reducers/dialog'
 import Dialogs from '../reducers/dialogs'
@@ -13,8 +13,14 @@ const reducers = combineReducers({
   theme: Theme,
   user: User,
 })
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
-const store = createStore(reducers);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers());
 
 export default store
 
