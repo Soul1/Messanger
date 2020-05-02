@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
 import firebase from "firebase/app";
+import {connect} from "react-redux";
+import {isAuthenticated} from "../../../redux/actios/user"
 
-const Login = () => {
+const Login = (props: {isAuthenticated: any} ) => {
   const [form, setForm] = useState({email: '', password: ''})
   const onLoginClick = async () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(form.email, form.password)
+      props.isAuthenticated(true)
     } catch (e) {
       throw e
     }
   }
   const formHandler = (e: any) => setForm({...form, [e.target.name]: e.target.value})
   return (
-    <div className='login container'>
+    <div className='login width'>
       <div className="login__inner">
         <h3 className="login-title">Login</h3>
         <div className="login--form">
@@ -29,4 +32,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default connect(null, {isAuthenticated}) (Login);
