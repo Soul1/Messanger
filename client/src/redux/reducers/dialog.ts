@@ -1,7 +1,10 @@
 import {IDialogState} from "../../types/redux/reducers";
 
 const initialState: IDialogState = {
- id: 0
+  id: 0,
+  fullName: 'string',
+  lastMessage: 'string',
+  avatar: 'string',
 }
 
 const dialog = (state = initialState, action: any) => {

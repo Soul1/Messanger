@@ -1,11 +1,14 @@
 export type IUserState = {
   id: number;
-  FullName: string;
+  fullName: string;
   status: string;
   isAuth: boolean;
 }
 export type IDialogState = {
   id: number;
+  fullName: string;
+  lastMessage: string;
+  avatar: string;
 }
 export type IDialogsState = {
   usersId: Array<number>;
