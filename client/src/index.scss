@@ -11,7 +11,6 @@ html {
 }
 
 body {
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -19,12 +18,24 @@ ul, li {
   list-style: none;
 }
 
+img {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 input {
   display: block;
 }
+
 //Global style
-.container{
+.container {
   margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.width {
   max-width: 1200px;
   width: 100%;
 }
@@ -32,15 +43,51 @@ input {
 // LOGIN
 .login {
   overflow: hidden;
+
   &__inner {
-    z-index: 5;
     text-align: center;
-    margin: calc(100vh/2 - 100px) auto;
+    margin: calc(100vh / 2 - 100px) auto;
   }
+
   &--form {
     display: flex;
     justify-content: center;
   }
 }
 
+// APP
+.app {
+  height: 100vh;
+  display: flex;
 
+  &__sidebar {
+    width: 15%;
+    text-align: center;
+  }
+
+  &__main {
+    width: 85%;
+  }
+}
+
+//Dialog
+.dialog {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+
+  &__user {
+    &-avatar img {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+
+    &-name {
+      font-size: 18px;
+    }
+
+    &-message {
+      font-size: 14px;
+    }
+  }
+}
