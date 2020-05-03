@@ -4,13 +4,11 @@ import {connect} from "react-redux";
 import {IUserState} from "../../types/redux/reducers"
 import firebase from "firebase";
 import {isAuthenticated} from "../../redux/actios/user"
-import {Redirect} from 'react-router-dom'
 
 const SideBar = (props: { isAuth: boolean, isAuthenticated: any }) => {
   const {isAuth, isAuthenticated} = props
   const onLogOut = () => {
     firebase.auth().signOut().then(() => {
-      // <Redirect to='/login'/>
       isAuthenticated(false)
     }).catch((e) => {
       throw e

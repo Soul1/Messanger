@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Chat = () => {
+const Chat = (props: { catalog: string }) => {
   return (
     <div>
-
+      {props.catalog}
     </div>
   );
 }
