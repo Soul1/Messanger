@@ -1,6 +1,6 @@
-import {IDialogState} from "../../types/redux/reducers";
+import {TDialogState} from "../../types/redux/reducers";
 
-const initialState: IDialogState = {
+const initialState: TDialogState = {
   id: 0,
   fullName: 'string',
   lastMessage: 'string',

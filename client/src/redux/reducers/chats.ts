@@ -1,7 +1,12 @@
-import {IChatsState} from "../../types/redux/reducers";
+import {TChatsState} from "../../types/redux/reducers";
 
-const initialState: IChatsState = {
-  catalogs: []
+const initialState: TChatsState = {
+  catalogs: [
+    {
+      id: 0,
+      catalog: 'string'
+    }
+  ]
 }
 
 const chats = (state = initialState, action: any) => {

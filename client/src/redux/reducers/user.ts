@@ -1,6 +1,6 @@
-import {IUserState} from "../../types/redux/reducers";
+import {TUserState} from "../../types/redux/reducers";
 
-const initialState: IUserState = {
+const initialState: TUserState = {
   id: 0,
   fullName: 'string',
   status: 'string',

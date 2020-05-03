@@ -1,6 +1,6 @@
-import {IThemeState} from "../../types/redux/reducers";
+import {TThemeState} from "../../types/redux/reducers";
 
-const initialState: IThemeState = {
+const initialState: TThemeState = {
   theme: 'dark'
 }
 
