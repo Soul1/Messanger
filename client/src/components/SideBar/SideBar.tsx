@@ -1,16 +1,26 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {IUserState} from "../../types/redux/reducers"
 import firebase from "firebase";
 import {isAuthenticated} from "../../redux/actios/user"
 
-const SideBar = (props: { isAuth: boolean, isAuthenticated: any }) => {
-  const {isAuth, isAuthenticated} = props
+interface ISideBar {
+  user: {
+    isAuth: boolean
+  }
+}
+
+interface IProps {
+  isAuth: boolean;
+  isAuthenticated: (isAuth: boolean) => void
+}
+
+const SideBar = ({isAuth, isAuthenticated}: IProps) => {
   const onLogOut = () => {
-    firebase.auth().signOut().then(() => {
-      isAuthenticated(false)
-    }).catch((e) => {
+    firebase.auth().signOut()
+      .then(() => {
+        isAuthenticated(false)
+      }).catch((e) => {
       throw e
     });
   }
@@ -28,8 +38,8 @@ const SideBar = (props: { isAuth: boolean, isAuthenticated: any }) => {
   );
 };
 
-const mSTP = ({user}: { user: IUserState }) => ({
-  isAuth: user.isAuth,
-})
+const mSTP = (state: ISideBar): IProps => ({
+  isAuth: state.user.isAuth,
+}) as IProps
 
 export default connect(mSTP, {isAuthenticated})(SideBar);
