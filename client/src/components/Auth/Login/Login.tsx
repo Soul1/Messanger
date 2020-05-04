@@ -3,12 +3,19 @@ import firebase from "firebase/app";
 import {connect} from "react-redux";
 import {isAuthenticated} from "../../../redux/actios/user"
 
-const Login = (props: {isAuthenticated: any} ) => {
+interface IProps {
+  isAuthenticated: (isAuth: boolean) => void
+}
+
+const Login = ({isAuthenticated}: IProps ) => {
   const [form, setForm] = useState({email: '', password: ''})
+  const [dis, setDis] = useState(false)
   const onLoginClick = async () => {
     try {
+      setDis(true)
       await firebase.auth().signInWithEmailAndPassword(form.email, form.password)
-      props.isAuthenticated(true)
+      isAuthenticated(true)
+      setDis(false)
     } catch (e) {
       throw e
     }
@@ -24,7 +31,7 @@ const Login = (props: {isAuthenticated: any} ) => {
                    name="email" onChange={formHandler}/>
             <input type="password" value={form.password}
                    name="password" onChange={formHandler}/>
-            <button onClick={onLoginClick}>LogIn</button>
+            <button onClick={onLoginClick} disabled={dis}>LogIn</button>
           </div>
         </div>
       </div>
