@@ -1,4 +1,4 @@
-import {TUserState} from "../../types/redux/reducers";
+import {TUserState} from '../../types/redux/reducers'
 
 const initialState: TUserState = {
   id: 0,

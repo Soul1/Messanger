@@ -1,4 +1,4 @@
-import {TChatsState} from "../../types/redux/reducers";
+import {TChatsState} from '../../types/redux/reducers';
 
 const initialState: TChatsState = {
   catalogs: [

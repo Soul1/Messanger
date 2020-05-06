@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
         <div className='header__user-status'>{}</div>
       </div>
     </header>
-  );
+  )
 }
 
 export default Header;
