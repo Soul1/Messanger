@@ -4,6 +4,7 @@ import Dialog from '../reducers/dialog'
 import Dialogs from '../reducers/dialogs'
 import Theme from '../reducers/theme'
 import User from '../reducers/user'
+import Messages from "../reducers/messages";
 
 
 const reducers = combineReducers({
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   dialogs: Dialogs,
   theme: Theme,
   user: User,
+  messages:Messages,
 })
 declare global {
   interface Window {
