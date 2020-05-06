@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import Message from "../../../common/Message/Message";
 
 const Main = () => {
   return (
@@ -7,15 +8,10 @@ const Main = () => {
         <div className='main__message-avatar'>
           <img src='' alt='User Avatar'/>
         </div>
-        <div className='main__message-text'>
-          <p>
-            Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit.
-          </p>
-        </div>
+        <Message />
       </div>
     </main>
-  );
+  )
 }
 
 export default Main;
