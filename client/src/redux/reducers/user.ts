@@ -5,6 +5,7 @@ const initialState: TUserState = {
   fullName: 'string',
   status: 'string',
   isAuth: false,
+  avatar: 'https://clck.ru/NNvap'
 }
 
 const user = (state = initialState, action: any) => {
