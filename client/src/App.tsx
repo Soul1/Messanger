@@ -5,26 +5,45 @@ import Register from "./components/Auth/Register/Register";
 import Settings from "./components/SideBar/Settings/Settings";
 import SideBar from "./components/SideBar/SideBar";
 import Main from "./components/Main/Main";
+import {connect} from "react-redux";
 
-const App = () => {
+interface IApp {
+  user: {
+    isAuth: boolean
+  }
+}
+
+interface IProps {
+  isAuth: boolean;
+}
+
+const App = ({isAuth}: IProps) => {
   return (
-      <BrowserRouter>
-        <div className="app">
-          <div className="app__sidebar">
-            <SideBar/>
-          </div>
-          <div className="app__main">
-            <Switch>
-              <Route path='/login' render={() => <Login/>}/>
-              <Route path='/register' render={() => <Register/>}/>
+    <BrowserRouter>
+      <div className="app">
+        <div className="app__sidebar">
+          <SideBar/>
+        </div>
+        <div className="app__main">
+          <Switch>
+            {isAuth &&
+            <>
               <Route path='/main' render={() => <Main/>}/>
               <Route path='/settings' render={() => <Settings/>}/>
-              <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
-            </Switch>
-          </div>
+            </>
+            }
+            <Route path='/login' render={() => <Login/>}/>
+            <Route path='/register' render={() => <Register/>}/>
+            <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+          </Switch>
         </div>
-      </BrowserRouter>
+      </div>
+    </BrowserRouter>
   );
 }
 
-export default App;
+const mSTP = (state: IApp): IProps => ({
+  isAuth: state.user.isAuth,
+})
+
+export default connect(mSTP)(App);
