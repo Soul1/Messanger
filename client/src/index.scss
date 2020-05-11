@@ -32,6 +32,12 @@ input {
   display: block;
 }
 
+button {
+  &:disabled {
+    color: #898989;
+  }
+}
+
 //Global style
 .container {
   margin: 0 auto;
@@ -47,6 +53,7 @@ input {
 .error {
   &-message{
     border: 1px solid #f00;
+    border-radius: 0 15px 0 0;
   }
 }
 
@@ -162,8 +169,30 @@ input {
   position: absolute;
   bottom: 0;
 
+  &__add {
+    & button{
+      background-color: transparent;
+      padding: 5px 9px;
+      outline: none;
+      margin-right: 10px;
+      border-radius: 2px;
+    }
+  }
+
   &__message {
     display: flex;
     align-items: center;
+    & input {
+      padding: 5px 9px;
+      width: 900px;
+      border-right: none;
+      outline: none;
+    }
+    & button {
+      padding: 5px 9px;
+      border-left: none;
+      outline: none;
+      border-radius: 0 15px 0 0;
+    }
   }
 }
