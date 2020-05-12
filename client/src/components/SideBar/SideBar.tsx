@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import firebase from 'firebase'
 import {isAuthenticated} from '../../redux/actios/user'
+import {Redirect} from 'react-router';
 
 interface ISideBar {
   user: {
@@ -29,6 +30,7 @@ const SideBar = ({isAuth, isAuthenticated}: IProps) => {
     <nav className='sidebar'>
       {isAuth ?
         <div>
+          <Redirect to='main'/>
           <NavLink to='/main'>Сообщения</NavLink>
           <NavLink to='/settings'>Настройки</NavLink>
           <NavLink to='/login' onClick={onLogOut}>Выйти</NavLink>
