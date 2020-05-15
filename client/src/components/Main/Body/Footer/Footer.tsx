@@ -1,15 +1,52 @@
-import React from 'react';
+import React, {useState, KeyboardEvent, ChangeEvent} from 'react'
+import {connect} from "react-redux";
+import {addMessage} from "../../../../redux/actios/messages";
+import {FooterProps, MDTP, MSTP} from "../../../../types/interfaseForUI/Footer";
+import {appState} from "../../../../redux/store";
 
-const Footer = () => {
+const Footer = ({addMessage}: FooterProps) => {
+  const [message, setMessage] = useState('')
+  const [err, setErr] = useState(false)
+  const onMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setErr(false)
+    setMessage(e.target.value)
+  }
+  const onKeyPress = async (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      await onAddMessage()
+    }
+  }
+  const onAddMessage = async () => {
+    if (!!message) {
+      let date: any = new Date()
+      date = `${date.getHours()}:${date.getMinutes()}`
+      setMessage('')
+      await addMessage(message, date)
+    }
+    else {
+      setErr(true)
+    }
+  }
   return (
     <footer className='footer'>
-      <div className='footer__add'><button>+</button></div>
-      <div className='footer__message'>
-        <input type='text' placeholder='Введите ваше сообщение...'/>
-        <button>Отправить</button>
+      <div className='footer__add'>
+        <button>+</button>
+      </div>
+      <div className={`footer__message ${err ? 'error-message' : ''}`}>
+        <input type='text'
+               onChange={onMessageHandler}
+               value={message}
+               autoFocus={true}
+               onKeyPress={onKeyPress}
+               placeholder='Введите ваше сообщение...'/>
+        <button onClick={onAddMessage}>Отправить</button>
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+// const mSTP = (state: appState): MSTP => {
+//
+// }
+
+export default connect<MSTP, MDTP, {}, appState>(null, {addMessage})(Footer);
