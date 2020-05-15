@@ -4,17 +4,9 @@ import {connect} from 'react-redux'
 import firebase from 'firebase'
 import {isAuthenticated} from '../../redux/actios/user'
 import {Redirect} from 'react-router';
+import {appState} from "../../redux/store";
 
-interface ISideBar {
-  user: {
-    isAuth: boolean
-  }
-}
-
-interface IProps {
-  isAuth: boolean;
-  isAuthenticated: (isAuth: boolean) => void
-}
+type IProps = MSTP & MDTP
 
 const SideBar = ({isAuth, isAuthenticated}: IProps) => {
   const onLogOut = () => {
@@ -35,14 +27,26 @@ const SideBar = ({isAuth, isAuthenticated}: IProps) => {
           <NavLink to='/settings'>Настройки</NavLink>
           <NavLink to='/login' onClick={onLogOut}>Выйти</NavLink>
         </div>
-        : <NavLink to='/login'>Войти</NavLink>
+        : <div>
+          <NavLink to='/login'>Войти</NavLink>
+          <NavLink to='/register'>Зарегистрироваться</NavLink>
+        </div>
       }
     </nav>
   )
 }
 
-const mSTP = (state: ISideBar): IProps => ({
-  isAuth: state.user.isAuth,
-}) as IProps
+type MSTP = {
+  isAuth: boolean
+}
 
-export default connect(mSTP, {isAuthenticated})(SideBar)
+type MDTP = {
+  isAuthenticated: (isAuth: boolean) => void;
+}
+
+
+const mSTP = ({user}: appState): MSTP => ({
+  isAuth: user.isAuth,
+})
+
+export default connect<MSTP, MDTP, {}, appState>(mSTP, {isAuthenticated})(SideBar)
