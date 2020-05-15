@@ -5,6 +5,8 @@ export type TUserState = {
   fullName: string
   status: string
   isAuth: boolean
+  sex?: 'male' | 'female'
+  birthDate?: string
   avatar?: string
 }
 
