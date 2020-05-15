@@ -5,7 +5,9 @@ const initialState: TUserState = {
   fullName: 'string',
   status: 'string',
   isAuth: false,
-  avatar: 'https://clck.ru/NNvap'
+  sex: 'male',
+  birthDate: '09.07.2000',
+  avatar: 'https://goo.su/162G'
 }
 
 const user = (state = initialState, action: any) => {
