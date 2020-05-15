@@ -15,6 +15,10 @@ const reducers = combineReducers({
   user: User,
   messages:Messages,
 })
+
+type rootReducers = typeof reducers
+export type appState = ReturnType<rootReducers>
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
