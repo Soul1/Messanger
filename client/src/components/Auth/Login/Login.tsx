@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import firebase from "firebase/app";
 import {connect} from "react-redux";
 import {isAuthenticated} from "../../../redux/actios/user"
 
-interface IProps {
-  isAuthenticated: (isAuth: boolean) => void
-}
+type IProps = MDTP
 
-const Login = ({isAuthenticated}: IProps ) => {
+const Login = ({isAuthenticated}: IProps) => {
   const [form, setForm] = useState({email: '', password: ''})
   const [dis, setDis] = useState(false)
   const onLoginClick = async () => {
     try {
       setDis(true)
-      await firebase.auth().signInWithEmailAndPassword(form.email, form.password)
-      isAuthenticated(true)
+      const response = await firebase.auth().signInWithEmailAndPassword(form.email, form.password)
       setDis(false)
+      console.log(response.user?.getIdToken());
+      isAuthenticated(true);
     } catch (e) {
+      setDis(false)
       throw e
     }
   }
-  const formHandler = (e: any) => setForm({...form, [e.target.name]: e.target.value})
+  const formHandler = (e: ChangeEvent<HTMLInputElement>) => setForm({...form, [e.target.name]: e.target.value})
   return (
     <div className='login width'>
       <div className="login__inner">
@@ -39,4 +39,8 @@ const Login = ({isAuthenticated}: IProps ) => {
   );
 }
 
-export default connect(null, {isAuthenticated}) (Login);
+type MDTP = {
+  isAuthenticated: (isAuth: boolean) => void;
+}
+
+export default connect<{}, MDTP, {}, {}>(null, {isAuthenticated})(Login);
