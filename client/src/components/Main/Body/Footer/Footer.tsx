@@ -1,8 +1,15 @@
 import React, {useState, KeyboardEvent, ChangeEvent} from 'react'
 import {connect} from "react-redux";
 import {addMessage} from "../../../../redux/actios/messages";
-import {FooterProps, MDTP, MSTP} from "../../../../types/interfaseForUI/Footer";
 import {appState} from "../../../../redux/store";
+
+export type FooterProps = MSTP & MDTP
+
+export type MSTP = {}
+
+export type MDTP = {
+  addMessage: (message: string, date: string) => void;
+}
 
 const Footer = ({addMessage}: FooterProps) => {
   const [message, setMessage] = useState('')
@@ -11,7 +18,7 @@ const Footer = ({addMessage}: FooterProps) => {
     setErr(false)
     setMessage(e.target.value)
   }
-  const onKeyPress = async (e: KeyboardEvent) => {
+  const onKeyPress = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       await onAddMessage()
     }
@@ -22,8 +29,7 @@ const Footer = ({addMessage}: FooterProps) => {
       date = `${date.getHours()}:${date.getMinutes()}`
       setMessage('')
       await addMessage(message, date)
-    }
-    else {
+    } else {
       setErr(true)
     }
   }
