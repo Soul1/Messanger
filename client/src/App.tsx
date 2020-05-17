@@ -6,6 +6,7 @@ import Settings from "./components/SideBar/Settings/Settings";
 import SideBar from "./components/SideBar/SideBar";
 import Main from "./components/Main/Main";
 import {connect} from "react-redux";
+import {Redirect} from "react-router";
 
 interface IApp {
   user: {
@@ -28,6 +29,7 @@ const App = ({isAuth}: IProps) => {
           <Switch>
             {isAuth &&
             <>
+              <Redirect to='main'/>
               <Route path='/main' render={() => <Main/>}/>
               <Route path='/settings' render={() => <Settings/>}/>
             </>

@@ -3,12 +3,11 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import firebase from 'firebase'
 import {isAuthenticated} from '../../redux/actios/user'
-import {Redirect} from 'react-router';
 import {appState} from "../../redux/store";
 
 type IProps = MSTP & MDTP
 
-const SideBar = ({isAuth, isAuthenticated}: IProps) => {
+const SideBar: React.FC<IProps> = ({isAuth, isAuthenticated}) => {
   const onLogOut = () => {
     firebase.auth().signOut()
       .then(() => {
@@ -21,13 +20,12 @@ const SideBar = ({isAuth, isAuthenticated}: IProps) => {
 
     <nav className='sidebar'>
       {isAuth ?
-        <div>
-          <Redirect to='main'/>
+        <div className='sidebar__link'>
           <NavLink to='/main'>Сообщения</NavLink>
           <NavLink to='/settings'>Настройки</NavLink>
           <NavLink to='/login' onClick={onLogOut}>Выйти</NavLink>
         </div>
-        : <div>
+        : <div className='sidebar__link'>
           <NavLink to='/login'>Войти</NavLink>
           <NavLink to='/register'>Зарегистрироваться</NavLink>
         </div>
