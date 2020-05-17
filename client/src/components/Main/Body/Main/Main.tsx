@@ -11,13 +11,15 @@ interface IProps {
 const Main = (props: IProps) => {
   return (
     <main className='main'>
-      <div className='main__messages'>
-        {
-          props.messages.map((message: TMessageState) => <Message key={message.id}
-                                                                  avatar={props.avatar}
-                                                                  message={message}
-          />)
-        }
+      <div className="main__container">
+        <div className='main__messages'>
+          {
+            props.messages.map((message: TMessageState) => <Message key={message.id}
+                                                                    avatar={props.avatar}
+                                                                    message={message}
+            />)
+          }
+        </div>
       </div>
     </main>
   )
