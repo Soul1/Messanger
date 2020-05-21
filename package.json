@@ -1,40 +1,57 @@
 {
-  "name": "chat",
-  "version": "1.0.0",
-  "description": "react, redux",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Soul1/Chat.git"
-  },
-  "keywords": [
-    "react",
-    "redux",
-    "typescript",
-    "express",
-    "nodejs",
-    "node",
-    "react-redux",
-    "react-thunk"
-  ],
-  "author": "Midaev Akhmad <darkwaud@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Soul1/Chat/issues"
-  },
-  "homepage": "https://github.com/Soul1/Chat#readme",
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "express": "^4.17.1",
-    "firebase": "^7.14.2",
-    "uuidv4": "^6.0.8"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.0.0",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux": "^3.6.0",
+    "@types/redux-form": "^8.2.3",
+    "classnames": "^2.2.6",
+    "firebase": "^7.14.4",
+    "jsonwebtoken": "^8.5.1",
+    "normalize.css": "^8.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.5",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "concurrently": "^5.1.0",
-    "nodemon": "^2.0.3",
-    "typescript": "^3.8.3"
+    "node-sass": "^4.14.0",
+    "sass-loader": "^8.0.2"
   }
 }

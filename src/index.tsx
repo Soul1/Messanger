@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import 'normalize.css'
-import './index.scss';
-import App from './App';
-import {Provider} from "react-redux";
-import store from './redux/store';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+import './index.scss'
+import App from './App'
+import {Provider} from "react-redux"
+import store from './redux/store'
+import * as firebase from 'firebase'
+import 'firebase/auth'
+import 'firebase/database'
+import {BrowserRouter} from "react-router-dom"
 
 firebase.initializeApp({
   apiKey: "AIzaSyBEpTkj56k0MrVgUH7arSLhUwhrCOGqzCg",
@@ -27,7 +28,9 @@ firebase.auth().onAuthStateChanged(() => {
     app = ReactDOM.render(
       <Provider store={store}>
         <React.StrictMode>
+          <BrowserRouter>
           <App/>
+          </BrowserRouter>
         </React.StrictMode>
       </Provider>,
       document.getElementById('root')

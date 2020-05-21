@@ -10,8 +10,17 @@ html {
   padding: 0px;
 }
 
+html,
 body {
+  height: 100%;
+  position: relative;
   overflow: hidden;
+}
+
+body {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
 }
 
 ul, li {
@@ -20,6 +29,8 @@ ul, li {
 
 a {
   display: block;
+  text-decoration: none;
+  color: #000;
 }
 
 img {
@@ -51,10 +62,14 @@ button {
 }
 
 .error {
-  &-message{
+  &-message {
     border: 1px solid #f00;
     border-radius: 0 15px 0 0;
   }
+}
+
+.display-none {
+  display: none;
 }
 
 // LOGIN
@@ -70,6 +85,7 @@ button {
     display: flex;
     justify-content: center;
   }
+
 }
 
 // APP
@@ -79,10 +95,12 @@ button {
 
   &__sidebar {
     width: 15%;
+    background-color: #dcf1fd;
   }
 
   &__main {
     width: 85%;
+    background-color: #fff;
   }
 }
 
@@ -111,6 +129,26 @@ button {
 // Sidebar
 .sidebar {
   display: flex;
+  height: 100vh;
+
+  &__link {
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 18px;
+
+    & a {
+      border: 1px solid transparent;
+      border-radius: 5px 0;
+      padding: 3px 5px;
+      margin-bottom: 10px;
+      transition: all .3s ease-out;
+    }
+
+    & a:hover {
+      border: 1px solid #df93ff;
+      background-color: #dcfdee;
+    }
+  }
 }
 
 // Body
@@ -125,10 +163,17 @@ button {
 
 .main {
   height: 80vh;
-  position: relative;
+
+  &__container{
+    position: relative;
+    max-width: 1020px;
+    width: 100%;
+    height: 100%;
+  }
 
   &__messages {
     position: absolute;
+    right: 0;
     bottom: 0;
   }
 
@@ -149,7 +194,8 @@ button {
       margin-left: 10px;
       border-radius: 0 15px 0;
     }
-    &-time{
+
+    &-time {
       font-size: 12px;
       margin-left: 5px;
       color: #898989;
@@ -170,7 +216,7 @@ button {
   bottom: 0;
 
   &__add {
-    & button{
+    & button {
       background-color: transparent;
       padding: 5px 9px;
       outline: none;
@@ -182,17 +228,34 @@ button {
   &__message {
     display: flex;
     align-items: center;
+
     & input {
       padding: 5px 9px;
       width: 900px;
       border-right: none;
       outline: none;
     }
+
     & button {
       padding: 5px 9px;
       border-left: none;
       outline: none;
       border-radius: 0 15px 0 0;
     }
+  }
+}
+
+// GlobalMessage
+.globalMessage{
+  z-index: 50;
+  background-color: #fff;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  &-ok{
+    border: 2px solid #1f0;
+  }
+  &-err {
+    border: 2px solid #f00;
   }
 }

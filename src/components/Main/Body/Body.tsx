@@ -3,6 +3,7 @@ import Header from './Header/Header'
 import Main from './Main/Main'
 import Footer from './Footer/Footer'
 import {connect} from 'react-redux'
+import {appState} from "../../../redux/store";
 
 const Body = () => {
   return (
@@ -14,7 +15,7 @@ const Body = () => {
   )
 }
 
-const mSTP = () => {
+const mSTP = (state: appState) => {
 
 }
 

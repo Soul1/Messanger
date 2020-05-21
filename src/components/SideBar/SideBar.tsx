@@ -5,13 +5,14 @@ import firebase from 'firebase'
 import {isAuthenticated} from '../../redux/actios/user'
 import {appState} from "../../redux/store";
 
-type IProps = MSTP & MDTP
+type TProps = MSTP & MDTP
 
-const SideBar: React.FC<IProps> = ({isAuth, isAuthenticated}) => {
+const SideBar: React.FC<TProps> = ({isAuth, isAuthenticated}) => {
   const onLogOut = () => {
     firebase.auth().signOut()
       .then(() => {
         isAuthenticated(false)
+        localStorage.removeItem('token')
       }).catch((e) => {
       throw e
     })

@@ -17,6 +17,11 @@ const user = (state = initialState, action: any) => {
         ...state,
         isAuth: action.isAuth,
       }
+    case 'SET_TOKEN':
+      return {
+        ...state,
+        token: action.token,
+      }
     default:
       return state
   }
