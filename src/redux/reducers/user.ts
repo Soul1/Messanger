@@ -1,7 +1,7 @@
 import {TUserState} from '../../types/redux/reducers'
 
 const initialState: TUserState = {
-  id: 0,
+  id: null,
   fullName: 'string',
   status: 'string',
   isAuth: false,
@@ -21,6 +21,11 @@ const user = (state = initialState, action: any) => {
       return {
         ...state,
         token: action.token,
+      }
+    case 'SET_USERID':
+      return {
+        ...state,
+        id: action.id,
       }
     default:
       return state
