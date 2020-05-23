@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^8.2.3",
+    "@types/uuidv4": "^5.0.0",
     "classnames": "^2.2.6",
     "firebase": "^7.14.4",
     "jsonwebtoken": "^8.5.1",
@@ -27,7 +28,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-form": "^8.3.5",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuidv4": "^6.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
