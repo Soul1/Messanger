@@ -2,7 +2,7 @@
 export type TUsersState = TUserState[]
 //юзер инициализируется после входа
 export type TUserState = {
-  id: number
+  id: string | null
   fullName: string
   status: string
   isAuth: boolean
