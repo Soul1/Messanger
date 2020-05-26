@@ -1,4 +1,5 @@
-import {combineReducers, createStore, compose} from 'redux'
+import {combineReducers, createStore, compose, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import Chats from '../reducers/chats'
 import Dialog from '../reducers/dialog'
 import Dialogs from '../reducers/dialogs'
@@ -23,7 +24,7 @@ export type appState = ReturnType<rootReducers>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, composeEnhancers())
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
 
 export default store
 

@@ -4,7 +4,7 @@ export type TUsersState = TUserState[]
 export type TUserState = {
   id: string | null
   fullName: string
-  status: string
+  status: 'online' | 'offline'
   isAuth: boolean
   sex: 'male' | 'female'
   birthDate?: string
@@ -46,7 +46,7 @@ export type TMessagesState = {
 export type TMessageState = {
   date: string
   message: string
-  id: number
+  id: string
 }
 //сообщения, которые созданы для взаимодействия с юзером
 export type TGlobalMessageState = {

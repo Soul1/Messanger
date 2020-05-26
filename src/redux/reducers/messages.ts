@@ -5,7 +5,7 @@ const initialState: TMessagesState = {
   messages: [{
     date: '14:49',
     message: 'tvarina',
-    id: 0,
+    id: '0',
   }]
 }
 
@@ -14,6 +14,11 @@ const messages = (state = initialState, action: any) => {
     case 'ADD_MESSAGE':
       return {
         messages: [...state.messages, {date: action.date, message: action.message, id: uuid()}]
+      }
+    case 'ADD_MESSAGES':
+      console.log(action.messages);
+      return {
+        messages: [...state.messages, ...action.messages]
       }
     default:
       return state
