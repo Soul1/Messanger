@@ -10,10 +10,11 @@ import {Redirect} from "react-router";
 import {appState} from "./redux/store";
 import {isAuthenticated, setToken} from "./redux/actios/user";
 import Preloader from "./utils/Preloader/Preloader";
+import api from "./utils/api/api";
 
 type TProps = MSTP & MDTP
 
-const App: React.FC<TProps> = ({isAuth, token, isAuthenticated, setToken}) => {
+const App: React.FC<TProps> = ({uid, isAuth, token, isAuthenticated, setToken}) => {
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -29,6 +30,7 @@ const App: React.FC<TProps> = ({isAuth, token, isAuthenticated, setToken}) => {
     if (localStorage.getItem('token') === token) {
       isAuthenticated(true)
       setIsLoading(false)
+      api.currentUser(uid)
     }
   }, [token])
 
@@ -62,6 +64,7 @@ const App: React.FC<TProps> = ({isAuth, token, isAuthenticated, setToken}) => {
 type MSTP = {
   isAuth: boolean
   token: string
+  uid: string
 }
 type MDTP = {
   isAuthenticated: (isAuth: boolean) => void
@@ -70,6 +73,7 @@ type MDTP = {
 
 const mSTP = (state: appState): MSTP => ({
   isAuth: state.user.isAuth,
+  uid: state.user.id,
   token: state.user?.token
 })
 
