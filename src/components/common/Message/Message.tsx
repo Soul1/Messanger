@@ -1,18 +1,15 @@
 import React from 'react'
+import {TMessageState} from "../../../types/redux/reducers";
 
-interface IProps {
-  message: {
-    date: string;
-    message: string;
-    id: number;
-  }
+type TProps = {
+  message: TMessageState
   avatar?: string
 }
 
-const Message = ({message, avatar}: IProps) => {
+const Message: React.FC<TProps> = ({message, avatar}) => {
   return (
     <div className='main__message'>
-      <div className='main__message-avatar'>
+      <div className='main__message-avatar avatar'>
         <img src={avatar} alt='User Avatar'/>
       </div>
       <div className='main__message-text'>
