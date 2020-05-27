@@ -25,14 +25,14 @@ const Footer: React.FC<TProps> = ({uid}) => {
       let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
       setMessage('')
-      await api.saveMessage(uid, message, date)
+      await api.saveMessage(uid, date, message)
     } else {
       setErr(true)
     }
   }
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      api.savePhoto(uid, e.target.files[0])
+      api.saveMessagePhoto(uid, e.target.files[0])
     }
   }
   return (
