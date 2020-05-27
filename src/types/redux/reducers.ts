@@ -45,8 +45,9 @@ export type TMessagesState = {
 //сообщения в переписке
 export type TMessageState = {
   date: string
-  message: string
+  message?: string
   id: string
+  imageUrl?: string
 }
 //сообщения, которые созданы для взаимодействия с юзером
 export type TGlobalMessageState = {
