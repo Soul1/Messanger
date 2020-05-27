@@ -13,7 +13,7 @@ const messages = (state = initialState, action: any) => {
       }
     case 'ADD_IMAGE':
       return {
-        messages: [...state.messages, {date: action.date, message: action.url, id: uuid()}]
+        messages: [...state.messages, {date: action.date, imageUrl: action.url, id: uuid()}]
       }
     case 'ADD_MESSAGES':
       console.log(action.messages);
