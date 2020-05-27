@@ -13,9 +13,13 @@ const Message: React.FC<TProps> = ({message, avatar}) => {
         <img src={avatar} alt='User Avatar'/>
       </div>
       <div className='main__message-text'>
-        <p>
-          {message.message}
-        </p>
+        {!message.imageUrl ?
+          <p>
+            {message.message}
+          </p>
+          :
+          <img src={message.imageUrl} alt=""/>
+        }
       </div>
       <div className="main__message-time">
       {message.date}
