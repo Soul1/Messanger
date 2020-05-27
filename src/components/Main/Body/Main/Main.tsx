@@ -1,38 +1,43 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Message from "../../../common/Message/Message";
 import {connect} from "react-redux";
-import {TMessageState, TUserState} from "../../../../types/redux/reducers";
+import {TMessagesState, TMessageState} from "../../../../types/redux/reducers";
+import {appState} from "../../../../redux/store";
+import api from "../../../../utils/api/api";
 
-interface IProps {
-  messages: TMessageState[]
-  avatar?: string
-}
+type TProps = MSTP
 
-const Main = (props: IProps) => {
+const Main: React.FC<TProps> = (props) => {
+
+  useEffect(() => {
+      api.loadMessages(props.uid)
+  }, [])
+
   return (
     <main className='main'>
       <div className="main__container">
         <div className='main__messages'>
-          {
-            props.messages.map((message: TMessageState) => <Message key={message.id}
-                                                                    avatar={props.avatar}
-                                                                    message={message}
-            />)
-          }
+            {
+              props.messages?.messages?.map((message: TMessageState) => <Message key={message.id}
+                                                                      avatar={props.avatar}
+                                                                      message={message}
+              />)
+            }
+          </div>
         </div>
-      </div>
     </main>
   )
 }
-
-interface IMain {
-  messages: { messages: TMessageState[] }
-  user: TUserState
+type MSTP = {
+  messages: TMessagesState
+  avatar?: string
+  uid: string
 }
 
-const mSTP = (state: IMain): IProps => ({
-  messages: state.messages.messages,
-  avatar: state.user.avatar
+const mSTP = (state: appState): MSTP => ({
+  messages: state.messages,
+  avatar: state.user.avatar,
+  uid: state.user.id
 })
 
-export default connect(mSTP)(Main);
+export default connect<MSTP, {}, {}, appState>(mSTP)(Main);
