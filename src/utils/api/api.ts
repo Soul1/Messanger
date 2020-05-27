@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app'
 import {isAuthenticated, setToken, setUserId} from '../../redux/actios/user'
 import store from '../../redux/store'
 import jwt from 'jsonwebtoken'
-import {addMessage} from '../../redux/actios/messages'
+import {addImage, addMessage} from '../../redux/actios/messages'
 
 type TApi = {
   login: (email: string, password: string) => void
@@ -10,7 +10,7 @@ type TApi = {
   currentUser: (userId: string) => void
   savePhoto: (uid: string, photo: any) => void
   loadMessages: (userId: string) => void
-  saveMessage: (userId: string, message: string, date: string) => void
+  saveMessage: ( userId: string, date: Date | string, message?: string, imageUrl?: string) => void
   updateDatabaseAfterRegistered: (userId: string, name: string) => void
 }
 
@@ -62,7 +62,13 @@ const api: TApi = {
     messagesRef.off()
     const setMessage = (data: any) => {
       const val = data.val()
-      store.dispatch(addMessage(val.text, val.date))
+      if (val.text) {
+        store.dispatch(addMessage(val.text, val.date))
+      }
+      if (val.imageUrl) {
+        store.dispatch(addImage(val.imageUrl, val.date))
+      }
+
     }
     messagesRef.limitToLast(12)
       .on('child_added', setMessage)
@@ -70,12 +76,20 @@ const api: TApi = {
       .on("child_changed", setMessage)
   },
 
-  saveMessage: (userId, message, date) => {
+  saveMessage: (userId, date, message, imageUrl) => {
     try {
       if (message && !!firebase.auth().currentUser) {
         const newPostKey = firebase.database().ref(`users/${userId}`).child('messages').push().key
         firebase.database().ref(`users/${userId}/messages/${newPostKey}`).update({
-          text: message,
+          message,
+          date,
+          id: newPostKey
+        })
+      }
+      if (imageUrl) {
+        const newPostKey = firebase.database().ref(`users/${userId}`).child('messages').push().key
+        firebase.database().ref(`users/${userId}/messages/${newPostKey}`).update({
+          imageUrl,
           date,
           id: newPostKey
         })
@@ -85,32 +99,21 @@ const api: TApi = {
     }
   },
 
-  savePhoto: (userId, photo) => {
-    console.log(firebase.firestore().collection(`users/${userId}/messages`).id);
-    firebase.firestore().collection(`users/${userId}/messages`).add({
-      name: firebase.auth().currentUser?.displayName,
-      imageUrl: 'LOADING_IMAGE_URL',
-      profilePicUrl: firebase.auth().currentUser?.photoURL,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(function (messageRef) {
+  savePhoto: async (userId, photo) => {
+    try {
       // Upload the image to Cloud Storage.
-      const filePath = `users/${userId}/messages/${messageRef.id}/${photo.name}`
-      return firebase.storage().ref(filePath).put(photo)
-        .then((fileSnapshot) => {
-          // Generate a public URL for the file.
-          return fileSnapshot.ref.getDownloadURL().then((url) => {
-            // Update the chat message placeholder with the image’s URL.
-            console.log(url);
-            console.log(fileSnapshot.metadata.fullPath);
-            return messageRef.update({
-              imageUrl: url,
-              storageUri: fileSnapshot.metadata.fullPath
-            });
-          });
-        });
-    }).catch(function (error) {
+      let date: Date | string = new Date()
+      date = `${date.getHours()}:${date.getMinutes()}`
+      const filePath = `users/${userId}/messages/${date}/${photo.name}`
+      const fileSnapshot = await firebase.storage().ref(filePath).put(photo)
+      fileSnapshot.ref.getDownloadURL().then((url) => {
+        // Update the chat message placeholder with the image’s URL.
+        api.saveMessage(userId, date, undefined , url)
+      })
+
+    } catch (error) {
       console.error('There was an error uploading a file to Cloud Storage:', error);
-    });
+    }
   }
 }
 
