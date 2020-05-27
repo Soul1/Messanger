@@ -1,58 +1,65 @@
 import React, {useState, KeyboardEvent, ChangeEvent} from 'react'
-import {connect} from "react-redux";
-import {addMessage} from "../../../../redux/actios/messages";
-import {appState} from "../../../../redux/store";
+import {connect} from 'react-redux'
+import {appState} from '../../../../redux/store'
+import cn from 'classnames'
+import api from '../../../../utils/api/api'
 
-export type FooterProps = MSTP & MDTP
+type TProps = MSTP
 
-export type MSTP = {}
-
-export type MDTP = {
-  addMessage: (message: string, date: string) => void;
-}
-
-const Footer = ({addMessage}: FooterProps) => {
+const Footer: React.FC<TProps> = ({uid}) => {
   const [message, setMessage] = useState('')
   const [err, setErr] = useState(false)
+
   const onMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setErr(false)
     setMessage(e.target.value)
   }
   const onKeyPress = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       await onAddMessage()
+      setMessage('')
     }
   }
   const onAddMessage = async () => {
     if (!!message) {
-      let date: any = new Date()
+      let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
       setMessage('')
-      await addMessage(message, date)
+      await api.saveMessage(uid, message, date)
     } else {
       setErr(true)
+    }
+  }
+  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      api.savePhoto(uid, e.target.files[0])
     }
   }
   return (
     <footer className='footer'>
       <div className='footer__add'>
-        <button>+</button>
+        <input type='file' id='file' onChange={onMainPhotoSelected}/>
+        <label htmlFor='file'>+</label>
       </div>
-      <div className={`footer__message ${err ? 'error-message' : ''}`}>
-        <input type='text'
-               onChange={onMessageHandler}
-               value={message}
-               autoFocus={true}
-               onKeyPress={onKeyPress}
-               placeholder='Введите ваше сообщение...'/>
+      <div className={cn('footer__message', {'error-message': err})}>
+        <input
+          onChange={onMessageHandler}
+          value={message}
+          autoFocus={true}
+          onKeyPress={onKeyPress}
+          placeholder='Введите ваше сообщение...'/>
         <button onClick={onAddMessage}>Отправить</button>
       </div>
     </footer>
   )
 }
 
-// const mSTP = (state: appState): MSTP => {
-//
-// }
+type MSTP = {
+  uid: string
+}
 
-export default connect<MSTP, MDTP, {}, appState>(null, {addMessage})(Footer);
+const mSTP = (state: appState): MSTP => ({
+  uid: state.user.id
+})
+
+export default connect<MSTP, {}, {}, appState>(mSTP)(Footer);
