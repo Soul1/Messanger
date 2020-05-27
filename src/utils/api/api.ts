@@ -8,9 +8,9 @@ type TApi = {
   login: (email: string, password: string) => void
   register: (email: string, password: string, userId: string) => void
   currentUser: (userId: string) => void
-  savePhoto: (uid: string, photo: any) => void
+  saveMessagePhoto: (uid: string, photo: any) => void
   loadMessages: (userId: string) => void
-  saveMessage: ( userId: string, date: Date | string, message?: string, imageUrl?: string) => void
+  saveMessage: (userId: string, date: Date | string, message?: string, imageUrl?: string) => void
   updateDatabaseAfterRegistered: (userId: string, name: string) => void
 }
 
@@ -57,18 +57,17 @@ const api: TApi = {
       store.dispatch(setUserId(user?.uid))
     }
   },
-  loadMessages: (userId) => {
-    const messagesRef = firebase.database().ref(`users/${userId}/messages`)
+  loadMessages: async (userId) => {
+    const messagesRef = firebase.database().ref(`users/${userId}/rooms/room-${userId}/messages`)
     messagesRef.off()
-    const setMessage = (data: any) => {
+    const setMessage = async (data: any) => {
       const val = data.val()
-      if (val.text) {
-        store.dispatch(addMessage(val.text, val.date))
+      if (val.message) {
+        await store.dispatch(addMessage(val.message, val.date))
       }
       if (val.imageUrl) {
-        store.dispatch(addImage(val.imageUrl, val.date))
+        await store.dispatch(addImage(val.imageUrl, val.date))
       }
-
     }
     messagesRef.limitToLast(12)
       .on('child_added', setMessage)
@@ -79,8 +78,8 @@ const api: TApi = {
   saveMessage: (userId, date, message, imageUrl) => {
     try {
       if (message && !!firebase.auth().currentUser) {
-        const newPostKey = firebase.database().ref(`users/${userId}`).child('messages').push().key
-        firebase.database().ref(`users/${userId}/messages/${newPostKey}`).update({
+        const newPostKey = firebase.database().ref(`users/${userId}/rooms/room-${userId}`).child('messages').push().key
+        firebase.database().ref(`users/${userId}/rooms/room-${userId}/messages/${newPostKey}`).update({
           message,
           date,
           id: newPostKey
@@ -88,7 +87,7 @@ const api: TApi = {
       }
       if (imageUrl) {
         const newPostKey = firebase.database().ref(`users/${userId}`).child('messages').push().key
-        firebase.database().ref(`users/${userId}/messages/${newPostKey}`).update({
+        firebase.database().ref(`users/${userId}/rooms/room-${userId}/messages/${newPostKey}`).update({
           imageUrl,
           date,
           id: newPostKey
@@ -99,16 +98,16 @@ const api: TApi = {
     }
   },
 
-  savePhoto: async (userId, photo) => {
+  saveMessagePhoto: async (userId, photo) => {
     try {
       // Upload the image to Cloud Storage.
       let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
-      const filePath = `users/${userId}/messages/${date}/${photo.name}`
+      const filePath = `users/${userId}/rooms/room-${userId}/messages/${date}/${photo.name}`
       const fileSnapshot = await firebase.storage().ref(filePath).put(photo)
       fileSnapshot.ref.getDownloadURL().then((url) => {
         // Update the chat message placeholder with the image’s URL.
-        api.saveMessage(userId, date, undefined , url)
+        api.saveMessage(userId, date, undefined, url)
       })
 
     } catch (error) {
