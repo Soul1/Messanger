@@ -2,11 +2,7 @@ import {TMessagesState} from '../../types/redux/reducers'
 import { uuid } from 'uuidv4'
 
 const initialState: TMessagesState = {
-  messages: [{
-    date: '14:49',
-    message: 'tvarina',
-    id: '0',
-  }]
+  messages: []
 }
 
 const messages = (state = initialState, action: any) => {
@@ -14,6 +10,10 @@ const messages = (state = initialState, action: any) => {
     case 'ADD_MESSAGE':
       return {
         messages: [...state.messages, {date: action.date, message: action.message, id: uuid()}]
+      }
+    case 'ADD_IMAGE':
+      return {
+        messages: [...state.messages, {date: action.date, message: action.url, id: uuid()}]
       }
     case 'ADD_MESSAGES':
       console.log(action.messages);
