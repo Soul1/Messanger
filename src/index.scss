@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
+
 html {
   box-sizing: border-box;
 }
@@ -21,6 +23,7 @@ body {
   font-size: 15px;
   line-height: 24px;
   font-weight: 400;
+  font-family: 'Balsamiq Sans';
 }
 
 ul, li {
@@ -72,18 +75,54 @@ button {
   display: none;
 }
 
+.avatar {
+  & img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+}
+
 // LOGIN
 .login {
   overflow: hidden;
+  background-image: url(https://img0.liveinternet.ru/images/attach/d/0/140/736/140736382_f402a212c8ffca9e169dbf5e356295c6.jpg);
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+
 
   &__inner {
     text-align: center;
     margin: calc(100vh / 2 - 100px) auto;
+
+  }
+
+  &__title {
+    font-size: 26px;
+    margin: 0 0 16px 0;
   }
 
   &--form {
     display: flex;
     justify-content: center;
+
+    & input {
+      padding: 6px 16px;
+      margin: 0 0 14px 0;
+      border: 1px solid #000;
+    }
+
+    & button {
+      background-color: #c7eef1;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #000;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
 }
@@ -110,10 +149,8 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.75);
 
   &__user {
-    &-avatar img {
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
+    &-avatar {
+
     }
 
     &-name {
@@ -155,25 +192,69 @@ button {
 .body {
   position: relative;
   height: 100vh;
+  background-image: url(./assets/image/mainbg.png);
+  background-size: auto;
+  background-repeat: repeat;
 }
 
 .header {
   height: 10vh;
+  display: flex;
+  align-items: center;
+  background-color: rgba(216, 178, 255, 0.9);
+  padding: 0px 10px;
+  border-bottom: 2px solid #fff;
+
+  &__container {
+    max-width: 1020px;
+    width: 100%;
+  }
+
+  &__user {
+    margin-left: 30px;
+
+    &-name {
+      font-size: 20px;
+    }
+
+    &-status {
+      font-size: 14px;
+      color: #474747;
+      font-weight: 700;
+      &.online {
+        color: #063d01;
+        transition: color .3s ease-in-out;
+        &:hover {
+          color: #1f0;
+        }
+      }
+
+      &.offline {
+        color: #4c0101;
+        transition: color .3s ease-in-out;
+        &:hover {
+          color: #f00;
+        }
+      }
+    }
+  }
 }
 
 .main {
   height: 80vh;
 
-  &__container{
+  &__container {
+    overflow: auto;
     position: relative;
     max-width: 1020px;
     width: 100%;
     height: 100%;
+    background-color: rgba(199, 236, 255, 0.75);
   }
 
   &__messages {
     position: absolute;
-    right: 0;
+    left: 0;
     bottom: 0;
   }
 
@@ -182,23 +263,25 @@ button {
     align-items: center;
     margin: 7px 0;
 
-    &-avatar img {
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
+    &-avatar {
+      margin-left: 10px;
+
     }
 
     &-text {
+      background-color: #fff;
       border: 1px solid #c9c9c9;
       padding: 5px 7px;
       margin-left: 10px;
       border-radius: 0 15px 0;
+      max-width: 400px;
+      overflow: auto;
     }
 
     &-time {
       font-size: 12px;
       margin-left: 5px;
-      color: #898989;
+      color: #7f7f7f;
     }
   }
 }
@@ -216,12 +299,16 @@ button {
   bottom: 0;
 
   &__add {
-    & button {
-      background-color: transparent;
-      padding: 5px 9px;
+    & input {
+      display: none;
+    }
+    & label {
+      background-color: rgba(3, 255, 146, 0.8);
+      padding: 5px 10px;
       outline: none;
       margin-right: 10px;
-      border-radius: 2px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   }
 
@@ -229,11 +316,12 @@ button {
     display: flex;
     align-items: center;
 
-    & input {
-      padding: 5px 9px;
+    & textarea {
+      padding: 5px 10px;
       width: 900px;
       border-right: none;
       outline: none;
+      border-radius: 6px 0 0;
     }
 
     & button {
@@ -246,15 +334,17 @@ button {
 }
 
 // GlobalMessage
-.globalMessage{
+.globalMessage {
   z-index: 50;
   background-color: #fff;
   text-align: center;
   border: 2px solid transparent;
   border-radius: 3px;
-  &-ok{
+
+  &-ok {
     border: 2px solid #1f0;
   }
+
   &-err {
     border: 2px solid #f00;
   }
