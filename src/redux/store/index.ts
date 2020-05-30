@@ -7,7 +7,7 @@ import Theme from '../reducers/theme'
 import User from '../reducers/user'
 import Messages from '../reducers/messages'
 import GlobalMessage from '../reducers/globalMessage'
-
+import Users from '../reducers/users'
 
 const reducers = combineReducers({
   chats: Chats,
@@ -15,6 +15,7 @@ const reducers = combineReducers({
   dialogs: Dialogs,
   theme: Theme,
   user: User,
+  users: Users,
   messages: Messages,
   globalMessage: GlobalMessage,
 })
