@@ -9,6 +9,12 @@ const initialState: TDialogState = {
 
 const dialog = (state = initialState, action: any) => {
   switch (action.type) {
+    case  'SET_ID':
+      return {
+        ...state,
+        id: action.id
+      }
+
     default:
       return state
   }
