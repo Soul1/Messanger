@@ -6,7 +6,7 @@ import api from '../../../../utils/api/api'
 
 type TProps = MSTP
 
-const Footer: React.FC<TProps> = ({uid}) => {
+const Footer: React.FC<TProps> = ({uid, id}) => {
   const [message, setMessage] = useState('')
   const [err, setErr] = useState(false)
 
@@ -25,14 +25,14 @@ const Footer: React.FC<TProps> = ({uid}) => {
       let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
       setMessage('')
-      await api.saveMessage(uid, date, message)
+      await api.saveMessage(uid, id, date, message)
     } else {
       setErr(true)
     }
   }
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      api.saveMessagePhoto(uid, e.target.files[0])
+      api.saveMessagePhoto(uid, id, e.target.files[0])
     }
   }
   return (
@@ -56,10 +56,12 @@ const Footer: React.FC<TProps> = ({uid}) => {
 
 type MSTP = {
   uid: string
+  id: string
 }
 
 const mSTP = (state: appState): MSTP => ({
-  uid: state.user.id
+  uid: state.user.id,
+  id: state.dialog.id
 })
 
 export default connect<MSTP, {}, {}, appState>(mSTP)(Footer);
