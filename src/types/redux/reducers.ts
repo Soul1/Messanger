@@ -4,9 +4,9 @@ export type TUsersState = TUserState[]
 export type TUserState = {
   id: string | null
   fullName: string
-  status: 'online' | 'offline'
-  isAuth: boolean
-  sex: 'male' | 'female'
+  status?: 'online' | 'offline'
+  isAuth?: boolean
+  sex?: 'male' | 'female'
   birthDate?: string
   avatar: string
   token?: string
