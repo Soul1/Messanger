@@ -133,12 +133,12 @@ button {
   display: flex;
 
   &__sidebar {
-    width: 15%;
+    width: 10%;
     background-color: #dcf1fd;
   }
 
   &__main {
-    width: 85%;
+    width: 90%;
     background-color: #fff;
   }
 }
@@ -146,19 +146,25 @@ button {
 //Dialog
 .dialog {
   display: flex;
-  border: 1px solid rgba(0, 0, 0, 0.75);
-
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid #000;
+  align-items: center;
+  padding: 5px 0 0;
+  overflow: auto;
+  margin: 10px 6px;
   &__user {
     &-avatar {
-
+      margin: 0 5px;
     }
 
     &-name {
       font-size: 18px;
+      font-weight: 700;
     }
 
     &-message {
       font-size: 14px;
+      margin-left: 10px;
     }
   }
 }
@@ -192,9 +198,6 @@ button {
 .body {
   position: relative;
   height: 100vh;
-  background-image: url(./assets/image/mainbg.png);
-  background-size: auto;
-  background-repeat: repeat;
 }
 
 .header {
@@ -351,5 +354,22 @@ button {
 
   &-err {
     border: 2px solid #f00;
+  }
+}
+
+//Main Display
+.main-display{
+  display: flex;
+  height: 100vh;
+  background-image: url(./assets/image/mainbg.png);
+  background-size: auto;
+  background-repeat: repeat;
+  &__dialogs {
+    width: 20%;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__body {
+    width: 80%;
   }
 }
