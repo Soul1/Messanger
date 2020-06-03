@@ -3,7 +3,7 @@ import {isAuthenticated, setToken, setUserId} from '../../redux/actios/user'
 import store from '../../redux/store'
 import jwt from 'jsonwebtoken'
 import {addImage, addMessage} from '../../redux/actios/messages'
-import {addUsers} from "../../redux/actios/users";
+import {addUsersT} from '../../redux/actios/users'
 
 type TApi = {
   login: (email: string, password: string) => void
@@ -13,7 +13,7 @@ type TApi = {
   getDialogs: (uid: string) => void
   setNewRoom: (uid: string, id: string) => void
   saveMessagePhoto: (uid: string, id: string, photo: any) => void
-  loadMessages: (userId: string) => void
+  loadMessages: (userId: string, id: string) => void
   saveMessage: (userId: string, id: string, date: Date | string, message?: string, imageUrl?: string) => void
   updateDatabaseAfterRegistered: (userId: string, name: string) => void
 }
@@ -70,14 +70,14 @@ const api: TApi = {
       const localUsers: any = Object.entries(val)
       if (val) {
         await localStorage.setItem('users', localUsers)
-        await store.dispatch(addUsers(val))
+        await store.dispatch(addUsersT(val))
       }
     }
     messagesRef.on('value', setMessage)
   },
 
-  loadMessages: async (userId) => {
-    const messagesRef = firebase.database().ref(`users/${userId}/rooms/room-${userId}/messages`)
+  loadMessages: async (userId, id) => {
+    const messagesRef = firebase.database().ref(`rooms/${userId}/room-${id}/messages`)
     messagesRef.off()
     const setMessage = async (data: any) => {
       const val = data.val()
@@ -97,8 +97,8 @@ const api: TApi = {
   saveMessage: (userId, id, date, message, imageUrl) => {
     try {
       if (message && !!firebase.auth().currentUser) {
-        const newPostKey = firebase.database().ref(`users/${userId}/rooms/room-${id}`).child('messages').push().key
-        firebase.database().ref(`users/${userId}/rooms/room-${id}/messages/${newPostKey}`).update({
+        const newPostKey = firebase.database().ref(`rooms/${userId}/room-${id}`).child('messages').push().key
+        firebase.database().ref(`rooms/${userId}/room-${id}/messages/${newPostKey}`).update({
           message,
           date,
           id: newPostKey
@@ -106,7 +106,7 @@ const api: TApi = {
       }
       if (imageUrl) {
         const newPostKey = firebase.database().ref(`users/${userId}`).child('messages').push().key
-        firebase.database().ref(`users/${userId}/rooms/room-${id}/messages/${newPostKey}`).update({
+        firebase.database().ref(`rooms/${userId}/room-${id}/messages/${newPostKey}`).update({
           imageUrl,
           date,
           id: newPostKey
@@ -121,7 +121,7 @@ const api: TApi = {
     try {
       let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
-      const filePath = `users/${userId}/rooms/room-${userId}/messages/${date}/${photo.name}`
+      const filePath = `rooms/${userId}/room-${userId}/messages/${date}/${photo.name}`
       const fileSnapshot = await firebase.storage().ref(filePath).put(photo)
       fileSnapshot.ref.getDownloadURL().then((url) => {
         api.saveMessage(userId, id, date, undefined, url)
@@ -132,7 +132,7 @@ const api: TApi = {
     }
   },
   setNewRoom: (uid, id) => {
-    firebase.database().ref(`users/${uid}/rooms/room-${id}/messages`).update(
+    firebase.database().ref(`rooms/${uid}/room-${id}/messages`).update(
       {m: 'vv'}
     )
   },
