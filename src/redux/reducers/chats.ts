@@ -3,7 +3,7 @@ import {TChatsState} from '../../types/redux/reducers';
 const initialState: TChatsState = {
   catalogs: [
     {
-      id: 0,
+      id: '0',
       catalog: 'string'
     }
   ]

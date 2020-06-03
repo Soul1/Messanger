@@ -1,5 +1,5 @@
 import React from 'react'
-import {TMessageState} from "../../../types/redux/reducers";
+import {TMessageState} from '../../../types/redux/reducers'
 
 type TProps = {
   message: TMessageState
@@ -18,10 +18,10 @@ const Message: React.FC<TProps> = ({message, avatar}) => {
             {message.message}
           </p>
           :
-          <img src={message.imageUrl} alt=""/>
+          <img src={message.imageUrl} alt=''/>
         }
       </div>
-      <div className="main__message-time">
+      <div className='main__message-time'>
       {message.date}
       </div>
     </div>

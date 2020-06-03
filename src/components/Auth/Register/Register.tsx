@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {appState} from '../../../redux/store'
-import {setError, setMessage} from '../../../redux/actios/globalMessage'
+import {setError, setMessage} from '../../../redux/actios/global'
 import GlobalMessage from '../../../utils/GlobalMessage/GlobalMessage'
 import cn from 'classnames'
 import api from '../../../utils/api/api'
@@ -85,7 +85,7 @@ type MSTP = {
 }
 
 const mSTP = (state: appState): MSTP => ({
-  errMess: state.globalMessage.error,
+  errMess: state.global.error,
   userId: state.user.id
 })
 

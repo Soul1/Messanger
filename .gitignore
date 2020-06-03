@@ -6,6 +6,7 @@
 .pnp.js
 .idea
 ALL.txt
+LogicForApp.txt
 # testing
 /coverage
 

@@ -1,4 +1,7 @@
 //массив юзеров(пока не знаю зачем, может для друзей?)
+import {TNameLists} from '../../components/Main/Dialogs/Search/Search'
+
+// export type TUsersState = {} | []
 export type TUsersState = TUserState[]
 //юзер инициализируется после входа
 export type TUserState = {
@@ -13,7 +16,7 @@ export type TUserState = {
 }
 //информация для средней панели, где будут всё комнаты с диалогами(как в телеграмме левая часть приложения)
 export type TDialogState = {
-  id: number
+  id: string
   fullName: string
   lastMessage?: string
   avatar: string
@@ -25,7 +28,7 @@ export type TDialogsState = {
 //информация о директориях, которые сам юзер кидает
 //свои диалоги или группы на которые подписан(нужно немного доработать)
 export type TChatState = {
-  id: number
+  id: string
   catalog: string
 }
 //массив каталогов для отображения в компоненте
@@ -53,5 +56,6 @@ export type TMessageState = {
 export type TGlobalMessageState = {
   message?: string
   error?: boolean
+  nameLists?: TNameLists
 }
 
