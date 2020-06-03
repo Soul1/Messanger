@@ -18,7 +18,7 @@ type MSTP = {
 }
 
 const mSTP = (state: appState): MSTP => ({
-  message: state.globalMessage.message
+  message: state.global.message
 })
 
 export default connect<MSTP, {}, {}, appState>(mSTP)(GlobalMessage)
