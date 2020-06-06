@@ -8,10 +8,10 @@ export const setError = (error: boolean): {type: 'SET_ERROR', error: boolean} =>
   return {type: 'SET_ERROR', error}
 }
 
-export const setNameLists = (nameLists: TNameLists): {type: 'SET_NAME_LISTS', nameLists: TNameLists} => {
-  return {type: 'SET_NAME_LISTS', nameLists}
+export const setNameLists = (userLists: TNameLists): {type: 'SET_NAME_LISTS', userLists: TNameLists} => {
+  return {type: 'SET_NAME_LISTS', userLists}
 }
 
-export const setNameListsT = (nameLists: TNameLists) => (dispatch: any) => {
-  dispatch(setNameLists(nameLists))
+export const setNameListsT = (userLists: TNameLists) => (dispatch: any) => {
+  dispatch(setNameLists(userLists))
 }
