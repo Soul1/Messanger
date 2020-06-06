@@ -3,10 +3,11 @@ import {connect} from 'react-redux'
 import {appState} from '../../../../redux/store'
 import cn from 'classnames'
 import api from '../../../../utils/api/api'
+import {setLastMessage} from "../../../../redux/actios/dialog";
 
-type TProps = MSTP
+type TProps = MSTP & MDTP
 
-const Footer: React.FC<TProps> = ({uid, id}) => {
+const Footer: React.FC<TProps> = ({uid, id, setLastMessage}) => {
   const [message, setMessage] = useState('')
   const [err, setErr] = useState(false)
 
@@ -21,11 +22,12 @@ const Footer: React.FC<TProps> = ({uid, id}) => {
     }
   }
   const onAddMessage = async () => {
-    if (!!message) {
+    if (message) {
       let date: Date | string = new Date()
       date = `${date.getHours()}:${date.getMinutes()}`
       setMessage('')
       await api.saveMessage(uid, id, date, message)
+      setLastMessage(message)
     } else {
       setErr(true)
     }
@@ -58,10 +60,13 @@ type MSTP = {
   uid: string
   id: string
 }
+type MDTP = {
+  setLastMessage: (message: string) => void
+}
 
 const mSTP = (state: appState): MSTP => ({
   uid: state.user.id,
   id: state.dialog.id
 })
 
-export default connect<MSTP, {}, {}, appState>(mSTP)(Footer);
+export default connect<MSTP, MDTP, {}, appState>(mSTP, {setLastMessage})(Footer);
