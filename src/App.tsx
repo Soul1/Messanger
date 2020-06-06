@@ -11,10 +11,11 @@ import {appState} from "./redux/store";
 import {isAuthenticated, setToken} from "./redux/actios/user";
 import Preloader from "./utils/Preloader/Preloader";
 import api from "./utils/api/api";
+import {TUsersState} from "./types/redux/reducers";
 
 type TProps = MSTP & MDTP
 
-const App: React.FC<TProps> = ({uid, isAuth, token, isAuthenticated, setToken}) => {
+const App: React.FC<TProps> = ({uid, isAuth, token, isAuthenticated, setToken, users}) => {
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -23,6 +24,10 @@ const App: React.FC<TProps> = ({uid, isAuth, token, isAuthenticated, setToken}) 
     if (localToken) {
       setIsLoading(true)
       setToken(localToken)
+    }
+    const localUsers: any = localStorage.getItem('users')
+    if (users?.length !== localUsers?.length) {
+      api.getUsers()
     }
   }, [])
 
@@ -36,7 +41,7 @@ const App: React.FC<TProps> = ({uid, isAuth, token, isAuthenticated, setToken}) 
 
   return (
     <>
-      {isLoading ? <Preloader/>
+      {isLoading && users ? <Preloader/>
         : <div className="app">
           <div className="app__sidebar">
             <SideBar/>
@@ -65,6 +70,7 @@ type MSTP = {
   isAuth: boolean
   token: string
   uid: string
+  users: TUsersState
 }
 type MDTP = {
   isAuthenticated: (isAuth: boolean) => void
@@ -74,7 +80,8 @@ type MDTP = {
 const mSTP = (state: appState): MSTP => ({
   isAuth: state.user.isAuth,
   uid: state.user.id,
-  token: state.user?.token
+  token: state.user?.token,
+  users: state.users
 })
 
 export default connect<MSTP, MDTP, {}, appState>(mSTP, {isAuthenticated, setToken})(App);
