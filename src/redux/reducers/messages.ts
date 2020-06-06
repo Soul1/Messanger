@@ -16,7 +16,6 @@ const messages = (state = initialState, action: any) => {
         messages: [...state.messages, {date: action.date, imageUrl: action.url, id: uuid()}]
       }
     case 'ADD_MESSAGES':
-      console.log(action.messages);
       return {
         messages: [...state.messages, ...action.messages]
       }

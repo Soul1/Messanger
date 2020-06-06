@@ -15,10 +15,9 @@ const global = (state = initialState, action: any) => {
         error: action.error
       }
     case 'SET_NAME_LISTS':
-      console.log(action.nameLists, '4545')
       return {
         ...state,
-        nameLists: action.nameLists
+        userLists: action.userLists
       }
     default:
       return state

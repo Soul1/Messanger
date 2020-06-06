@@ -56,6 +56,6 @@ export type TMessageState = {
 export type TGlobalMessageState = {
   message?: string
   error?: boolean
-  nameLists?: TNameLists
+  userLists?: TNameLists
 }
 
