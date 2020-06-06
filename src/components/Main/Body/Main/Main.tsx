@@ -10,7 +10,7 @@ type TProps = MSTP
 const Main: React.FC<TProps> = (props) => {
 
   useEffect(() => {
-      api.loadMessages(props.uid)
+      api.loadMessages(props.uid, props.id)
   }, [])
 
   return (
@@ -32,12 +32,14 @@ type MSTP = {
   messages: TMessagesState
   avatar?: string
   uid: string
+  id: string
 }
 
 const mSTP = (state: appState): MSTP => ({
   messages: state.messages,
   avatar: state.user.avatar,
-  uid: state.user.id
+  uid: state.user.id,
+  id: state.dialog.id
 })
 
 export default connect<MSTP, {}, {}, appState>(mSTP)(Main);
