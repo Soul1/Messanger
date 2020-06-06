@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import SearchList from './SearchList/SearchList'
-import {uuid} from 'uuidv4'
+import { uuid } from 'uuidv4'
 
 type TProps = {
-  users: any
+  userLists?: TNameLists
 }
 
 export type TList = {
@@ -11,27 +11,22 @@ export type TList = {
   id: string
 }
 
-type TNameLists = TList[]
+export type TNameLists = TList[]
 
-const Search: React.FC<TProps> = ({users}) => {
+const Search: React.FC<TProps> = ({userLists}) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [nameLists, setNameLists] = useState<TNameLists>([])
+  const [userNamesList, setUserNamesList] = useState<any>([])
 
   const searchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.currentTarget.value)
-    if (searchQuery.length) searchUser()
   }
 
-  const searchUser = () => {
-    for (let [id, user] of users) {
-      const name = user.info.name
-      const isNameSearch = name.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
-      if (isNameSearch) {
-        setNameLists([...nameLists, {name, id}])
-      }
-    }
+  const filterSearchUser = (searchQuery: string, userLists?: TNameLists) => {
+    setUserNamesList(userLists?.filter(
+      ({id, name}) => name.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0))
   }
 
+  useEffect(() => filterSearchUser(searchQuery, userLists), [searchQuery])
 
   return (
     <div className='search'>
@@ -41,7 +36,7 @@ const Search: React.FC<TProps> = ({users}) => {
                onChange={searchChange}/>
       </div>
       <div className="search-lists">
-        {nameLists?.map((name: TList) => <SearchList key={uuid()} {...name}/>)}
+        {!!searchQuery.length && userNamesList?.map((name: TList) => <SearchList key={uuid()} {...name}/>)}
       </div>
     </div>
   )
