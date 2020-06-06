@@ -1,6 +1,6 @@
 import React from 'react'
-import {appState} from "../../../../redux/store";
-import {connect} from "react-redux";
+import {appState} from '../../../../redux/store'
+import {connect} from 'react-redux'
 import cn from 'classnames'
 
 type TProps = MSTP
@@ -24,7 +24,7 @@ const Header: React.FC<TProps> = ({fullName, status, avatar}) => {
 
 type MSTP = {
   fullName: string
-  status: string
+  status?: 'online' | 'offline'
   avatar: string
 }
 
