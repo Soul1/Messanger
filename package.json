@@ -18,7 +18,7 @@
     "@types/redux-form": "^8.2.3",
     "@types/redux-thunk": "^2.1.0",
     "@types/uuidv4": "^5.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "firebase": "^7.14.4",
     "jsonwebtoken": "^8.5.1",
